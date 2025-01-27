@@ -19,6 +19,8 @@ const CreateProduct = () => {
     isFeatured: false
   })
 
+  const [image, setImage] = useState<File | null>(null)
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(createProduct(product))
@@ -29,6 +31,7 @@ const CreateProduct = () => {
     if (files && files[0]) {
       const reader = new FileReader()
       reader.onload = () => {
+        setImage(files[0])
         setProduct({ ...product, base64Image: reader.result })
       }
       reader.readAsDataURL(files[0])
@@ -86,7 +89,7 @@ const CreateProduct = () => {
             ref={inputImageRef}
             onChange={handleImageChange} />
           <button type='button' onClick={() => inputImageRef.current?.click()}>Upload</button>
-          {/* {product.image && <img src={URL.createObjectURL(product.image)} alt="preview" />} */}
+          {image && <img src={URL.createObjectURL(image)} alt="preview" />}
         </div>
         <button type="submit">Submit</button>
       </form>
