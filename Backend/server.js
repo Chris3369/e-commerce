@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 // import authRoute from './routes/auth.route.js'
 import productRoute from './routes/product.route.js'
 // import cartRoute from './routes/cart.route.js'
@@ -12,8 +13,10 @@ dotenv.config()
 
 const app = express()
 
+app.use(cors())
+
 // allows you to parse the body of the request
-app.use(express.json())
+app.use(express.json({ limit: "10mb" }));
 
 app.use(cookieParser())
 
